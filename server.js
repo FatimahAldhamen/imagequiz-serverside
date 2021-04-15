@@ -1,10 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import data from './data.js';
 
 const app = express();
 const port = process.env.PORT || 3999;
 
 app.use(express.json());
+app.use(cors());
 let scores = [];
 
 app.get('/', (request, response) => {
