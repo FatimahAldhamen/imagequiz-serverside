@@ -27,14 +27,17 @@ let generateQuizzes = () => {
         if (questionIndex > (questions.length - 7)) {
             questionIndex = i - 5;
         }
-        let quiz = [
-            questions[questionIndex],
-            questions[questionIndex + 1],
-            questions[questionIndex + 2],
-            questions[questionIndex + 3],
-            questions[questionIndex + 4],
-            questions[questionIndex + 5]
-        ];
+        let quiz = {
+            "id": quizzes.length + 1,
+            "quiz": [
+                questions[questionIndex],
+                questions[questionIndex + 1],
+                questions[questionIndex + 2],
+                questions[questionIndex + 3],
+                questions[questionIndex + 4],
+                questions[questionIndex + 5]
+            ]
+        };
         quizzes.push(quiz);
     }
     return quizzes;
@@ -43,4 +46,4 @@ let generateQuizzes = () => {
 let quizzes = generateQuizzes();
 
 
-export default quizzes;
+export default { quizzes, flowers };
