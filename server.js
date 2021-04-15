@@ -12,6 +12,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/flowers', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
     response.send(data.flowers);
 });
 
