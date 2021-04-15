@@ -17,6 +17,7 @@ app.get('/flowers', (request, response) => {
 });
 
 app.get('/quizzes', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
     response.send(data.quizzes);
 });
 
