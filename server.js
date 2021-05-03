@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import data from './data.js';
+import pool from './db.js';
 
 const app = express();
 const port = process.env.PORT || 3999;
 
 app.use(express.json());
 app.use(cors());
-let scores = [];
 
 app.get('/', (request, response) => {
     response.send("<h1 style='text-align:center;color:white;background-color: #ff00a5;'>Welcome to my REST API Server.</h1>");
@@ -31,14 +31,11 @@ app.get('/quizzes/:id', (request, response) => {
     response.send(quiz);
 });
 
-app.post('/score', (request, response) => {
-    if (!request.body.score || !request.body.username) return response.status(404).send({ "error": "Invalid Data" });
-    let score = {
-        "id": scores.length + 1,
-        "username": request.body.username,
-        "score": request.body.score
-    }
-    scores.push(score);
+app.post('/score', async(request, response) => {
+    // if (!request.body.score || !request.body.username) return response.status(404).send({ "error": "Invalid Data" });
+
+    const score = await pool.query("INSERT INTO imagequiz.scores(customerid,quizid,score) VALUES($1,$2,$3)", [request.body.customerid, request.body.quizid, request.body.score])
+
     response.send({
         "message": "Scores are saved successfully!",
         "score": score
