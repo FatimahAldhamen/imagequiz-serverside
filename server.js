@@ -13,9 +13,10 @@ app.get('/', (request, response) => {
     response.send("<h1 style='text-align:center;color:white;background-color: #ff00a5;'>Welcome to my REST API Server.</h1>");
 });
 
-app.get('/flowers', (request, response) => {
+app.get('/flowers', async(request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
-    response.send(data.flowers);
+    let flowers = await pool.query("SELECT * FROM imagequiz.flowers")
+    response.send(flowers.rows);
 });
 
 app.get('/quizzes', (request, response) => {
